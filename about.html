@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="auth.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | .RABBANI.</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary-color: #0f1111;
+            --accent-color: #c9a77c;
+            --text-main: #0f1111;
+            --text-muted: #565959;
+            --bg-main: #ffffff;
+            --bg-secondary: #f7f7f7;
+            --border-color: #e5e5e5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Global Header CSS */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            font-size: 1rem;
+            text-decoration: none;
+            color: var(--primary-color);
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 20px;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        /* Global Footer CSS */
+        footer {
+            background: var(--primary-color);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .footer-col h4 {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul a:hover {
+            color: white;
+        }
+
+        /* Hero Section */
+        .about-hero {
+            position: relative;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .about-hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            filter: brightness(0.4);
+            transform: scale(1.1);
+            animation: slowZoom 20s infinite alternate;
+        }
+
+        @keyframes slowZoom {
+            from {
+                transform: scale(1.05);
+            }
+
+            to {
+                transform: scale(1.15);
+            }
+        }
+
+        .about-hero-content {
+            z-index: 1;
+            padding: 0 20px;
+            animation: slideUp 1s ease-out 0.2s backwards;
+        }
+
+        .about-hero-content h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .about-hero-content p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: #eaeaea;
+        }
+
+        /* Content Section */
+        .about-section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .about-text h2 {
+            font-size: 2.8rem;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            line-height: 1.2;
+        }
+
+        .about-text p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            animation: slideUp 1s ease-out 0.4s backwards;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.03);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background-color: var(--bg-secondary);
+            padding: 80px 20px;
+            margin-top: 50px;
+        }
+
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-item h4 {
+            font-size: 3.5rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* WhatsApp Floating Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 35px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: transform 0.3s ease, background-color 0.3s;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background-color: #1ebe56;
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+
+            .about-hero-content h1 {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                padding: 15px 20px;
+            }
+        }
+        /* Unified Responsive Design */
+        @media (max-width: 1024px) {
+            .features-grid, .category-grid { grid-template-columns: repeat(2, 1fr) !important; }
+            .footer-content, .footer-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: row !important; gap: 10px !important; overflow-x: auto; padding: 10px !important; }
+            .nav-links { display: flex !important; flex-wrap: nowrap !important; justify-content: flex-start !important; gap: 15px !important; font-size: 0.85rem !important; }
+            .features-grid, .category-grid, .footer-content, .footer-grid { grid-template-columns: 1fr !important; }
+            .hero-content h1 { font-size: 2.5rem !important; }
+            .hero-content p { font-size: 1rem !important; padding: 0 15px !important; }
+            .section-header h2 { font-size: 2rem !important; }
+            .video-card { flex-direction: column !important; }
+            .video-card video { width: 100% !important; max-width: 100% !important; }
+            .video-title { text-align: center !important; }
+            .product-layout { flex-direction: column !important; }
+            .about-content { flex-direction: column !important; }
+        }
+        @media (max-width: 480px) {
+            .logo img { height: 50px !important; }
+            .nav-links { flex-direction: column; align-items: center; gap: 10px !important; }
+            .product-grid { grid-template-columns: 1fr !important; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="Untitled design (2).png" alt="Primary Goal Rabbani" style="height: 60px; width: auto;">
+            </a>
+
+            <nav class="nav-links">
+                <a href="index.html">HOME</a>
+                <a href="store.html">SHOP</a>
+                <a href="TRAING VIDEO.html">TRAINING</a>
+                <a href="about.html">ABOUT US</a>
+                <a href="https://wa.me/923477128889">CONTACT</a>
+            </nav>
+
+            <div class="nav-icons" style="font-size: 1.2rem; display: flex; gap: 20px;">
+                <i class="far fa-user"></i>
+                <i class="fas fa-shopping-bag"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <img src="Gemini_Generated_Image_l8a14gl8a14gl8a1.png" alt="Football Field" class="about-hero-bg">
+        <div class="about-hero-content">
+            <h1> .PRIMARY GOAL. Your Game</h1>
+            <p>We are dedicated to providing the world's most premium football training equipment to help you unlock
+                your true potential.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="about-section">
+        <div class="about-grid">
+            <div class="about-text" style="animation: slideUp 1s ease-out 0.3s backwards;">
+                <h3>Our Heritage</h3>
+                <h2>A Legacy of Quality & Trust</h2>
+                <p>Welcome to <strong>.PRIMARY GOAL.</strong>, where true passion meets elite performance. For over a decade,
+                    we have been at the absolute forefront of providing premium training equipment tailored specifically
+                    for champions.</p>
+                <p>Our journey began with a simple but profound mission: to empower athletes across the world to train
+                    like uncompromising pros right from the comfort of their own homes. We craft our products using only
+                    the most durable, premium materials designed to withstand the toughest workouts.</p>
+                <p>Today, we represent a deeply trusted name for hundreds of thousands of fitness enthusiasts globally.
+                    Our dedication to world-class quality, rapid innovation, and ultimate customer satisfaction has
+                    earned us the unwavering trust of athletes and everyday heroes alike. Your success is our mission.
+                </p>
+            </div>
+            <div class="about-image">
+                <img src="Gemini_Generated_Image_l8a14gl8a14gl8a1.png">
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item" style="animation: slideUp 1s ease-out 0.5s backwards;">
+                <h4>15+</h4>
+                <p>Years of Excellence</p>
+            </div>
+            <div class="stat-item" style="animation: slideUp 1s ease-out 0.6s backwards;">
+                <h4>250k+</h4>
+                <p>Trusted Customers</p>
+            </div>
+            <div class="stat-item" style="animation: slideUp 1s ease-out 0.7s backwards;">
+                <h4>4.9</h4>
+                <p>Average Rating</p>
+            </div>
+            <div class="stat-item" style="animation: slideUp 1s ease-out 0.8s backwards;">
+                <h4>100%</h4>
+                <p>Premium Quality</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Permanent WhatsApp Button -->
+    <a href="https://wa.me/923477128889" class="whatsapp-float" target="_blank" aria-label="Chat with us on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" style="display:inline-block; margin-bottom:15px;">
+                        <img src="Untitled design (2).png" alt="Primary Goal Rabbani" style="height: 80px;">
+                    </a>
+                    <p>Redefining football training at home with premium equipment and professional methodology.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>SHOP</h4>
+                    <ul>
+                        <li><a href="store.html">All Products</a></li>
+                        <li><a href="store.html">Soccer Mats</a></li>
+                        <li><a href="store.html">Training Gear</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>HELP</h4>
+                    <ul>
+                        <li><a href="https://wa.me/923477128889">Contact Us</a></li>
+                
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>SOCIAL</h4>
+                    <ul>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                <p>&copy; 2026 .PRIMARY GOAL.rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

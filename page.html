@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="auth.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soccer Training Mat - Product Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0f1111;
+            --secondary-color: #f7f7f7;
+            --accent-color: #c9a77c;
+            --text-main: #333333;
+            --text-muted: #767676;
+            --bg-main: #ffffff;
+            --border-color: #e5e5e5;
+            --animation-speed: 0.3s;
+        }
+
+        /* Base Styles */
+        body {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #ffffff;
+            color: #0F1111;
+            overflow-x: hidden;
+            opacity: 0;
+            animation: pageFadeIn 0.8s ease forwards;
+        }
+
+        @keyframes pageFadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Header Styles from store.html */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .top-bar {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            font-size: 0.85rem;
+            padding: 10px 0;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .top-bar-shop-btn {
+            position: absolute;
+            right: 24px;
+            background: var(--accent-color);
+            color: white !important;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .top-bar-shop-btn:hover {
+            background: #fff;
+            color: var(--primary-color) !important;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-shop-btn {
+            background: linear-gradient(135deg, var(--accent-color), #b5946a);
+            color: white !important;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 10px;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(201, 167, 124, 0.3);
+        }
+
+        .header-shop-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(201, 167, 124, 0.5);
+            filter: brightness(1.1);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 15px 24px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-decoration: none;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            font-size: 1.25rem;
+        }
+
+        .nav-icons i {
+            cursor: pointer;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .nav-icons i:hover {
+            color: var(--accent-color);
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .cart-icon-wrapper {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background-color: var(--accent-color);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s;
+        }
+
+        .cart-icon-wrapper:hover .cart-count {
+            transform: scale(1.2);
+        }
+
+        /* Cart Drawer Styles from store.html */
+        .cart-drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .cart-drawer-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100%;
+            background: white;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-drawer.active {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: color 0.3s ease;
+        }
+
+        .close-cart:hover {
+            color: var(--primary-color);
+        }
+
+        .cart-items {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            color: #555;
+        }
+
+        .cart-footer {
+            padding: 24px;
+            border-top: 1px solid var(--border-color);
+            background: var(--secondary-color);
+        }
+
+        .subtotal {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: var(--primary-color);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background: #222;
+        }
+
+        /* Login Modal Styles */
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .login-modal {
+            background: white;
+            width: 90%;
+            max-width: 400px;
+            padding: 40px;
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: modalSlideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes modalSlideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .login-modal h2 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .login-modal p {
+            text-align: center;
+            color: #777;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .login-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .login-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: 0.3s;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .login-form input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(15, 17, 17, 0.1);
+        }
+
+        .login-submit {
+            width: 100%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .login-submit:hover {
+            background: #333;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .signup-link a {
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .header.scrolled {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 5px 0;
+        }
+
+        .back-nav {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .back-to-website-btn {
+            background: var(--primary-color);
+            color: white !important;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-to-website-btn:hover {
+            background: #333;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Product Layout */
+        .product-layout {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        /* Image Gallery (Matching Screenshot) */
+        .image-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .main-image {
+            width: 100%;
+            border: 1px solid #e7e7e7;
+            border-radius: 8px;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            background: #fdfdfd;
+            box-sizing: border-box;
+        }
+
+        .main-image img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        .thumbnails {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .thumbnails img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            border: 2px solid transparent;
+            cursor: pointer;
+            padding: 2px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            background: #fff;
+            transition: 0.2s;
+        }
+
+        .thumbnails img.active,
+        .thumbnails img:hover {
+            border-color: #e77600;
+            box-shadow: 0 0 5px rgba(231, 118, 0, 0.5);
+        }
+
+        /* Product Details */
+        .product-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-title {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+
+        .brand-link {
+            color: #007185;
+            font-size: 14px;
+            text-decoration: none;
+            margin-bottom: 15px;
+        }
+
+        .brand-link:hover {
+            text-decoration: underline;
+            color: #c45500;
+        }
+
+        .price {
+            font-size: 28px;
+            color: #B12704;
+            font-weight: 500;
+            margin: 15px 0;
+        }
+
+        .price-currency {
+            font-size: 14px;
+            vertical-align: top;
+            margin-top: 5px;
+            display: inline-block;
+        }
+
+        .description-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+            padding-left: 20px;
+            margin-bottom: 30px;
+        }
+
+        .description li {
+            margin-bottom: 8px;
+        }
+
+        /* Buy Box Style */
+        .buy-box {
+            border: 1px solid #D5D9D9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            background: #fff;
+            max-width: 300px;
+        }
+
+        .buy-now-btn {
+            background: #FFA41C;
+            color: #0F1111;
+            border: 1px solid #FF8F00;
+            padding: 12px 20px;
+            font-size: 15px;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+        }
+
+        .buy-now-btn:hover {
+            background: #FA8900;
+            transform: translateY(-2px);
+        }
+
+        .add-to-cart-btn {
+            background: #FFD814;
+            color: #0F1111;
+            border: 1px solid #FCD200;
+            padding: 12px 20px;
+            font-size: 15px;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+            font-weight: 500;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+        }
+
+        .add-to-cart-btn:hover {
+            background: #F7CA00;
+            transform: translateY(-2px);
+        }
+
+        /* WhatsApp Floating Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 35px;
+            box-shadow: 2px 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s;
+            text-decoration: none;
+            animation: pulseWhatsApp 2s infinite;
+        }
+
+        @keyframes pulseWhatsApp {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.15);
+            background-color: #1ebe56;
+            color: white;
+        }
+
+        /* Toast Notification */
+        #cartToast {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: #06A75E;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            animation: slideInRight 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Checkout Flow / Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 480px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #555;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+
+        .close-modal:hover {
+            color: #111;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Modal Form UI */
+        .step h2 {
+            margin-top: 0;
+            font-size: 22px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+            box-sizing: border-box;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #007185;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 113, 133, 0.1);
+        }
+
+        .selected-product-preview {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #f7f7f7;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border: 1px solid #eee;
+        }
+
+        .selected-product-preview img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            background: #fff;
+        }
+
+        .selected-product-preview .info {
+            flex: 1;
+        }
+
+        .selected-product-preview h4 {
+            margin: 0 0 4px 0;
+            font-size: 14px;
+            color: #111;
+            font-weight: 600;
+        }
+
+        .selected-product-preview p {
+            margin: 0;
+            font-size: 15px;
+            color: #B12704;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: #FFD814;
+            color: #0F1111;
+            border: 1px solid #FCD200;
+            padding: 14px 24px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 500;
+            transition: 0.2s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-primary:hover {
+            background: #F7CA00;
+        }
+
+        /* Updated Amazon-like Payment Styles */
+        .payment-methods-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .payment-method-card {
+            border: 1px solid #D5D9D9;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+            position: relative;
+        }
+
+        .payment-method-card:hover {
+            background-color: #F7F7F7;
+        }
+
+        .payment-method-card.selected {
+            border-color: #007185;
+            background-color: #F0F8FF;
+            box-shadow: 0 0 0 1px #007185;
+        }
+
+        .payment-method-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .payment-method-header input[type="radio"] {
+            margin: 0;
+            accent-color: #007185;
+        }
+
+        .card-details-form {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #D5D9D9;
+            animation: fadeIn 0.3s;
+        }
+
+        .payment-method-card.selected .card-details-form {
+            display: block;
+        }
+
+        .card-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .card-input-group {
+            flex: 1;
+        }
+
+        .card-input-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #111;
+        }
+
+        .card-input-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #888C8C;
+            border-radius: 3px;
+            font-size: 14px;
+            box-shadow: 0 1px 2px rgba(15, 17, 17, 0.15) inset;
+        }
+
+        .card-input-group input:focus {
+            border-color: #007185;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 113, 133, 0.5);
+        }
+
+        /* Brand Colors for Payments */
+        .pay-jc {
+            color: #ee2e24;
+            font-weight: 800;
+            font-style: italic;
+            font-size: 16px;
+        }
+
+        .pay-ep {
+            color: #00a350;
+            font-weight: 800;
+            font-style: italic;
+            font-size: 16px;
+        }
+
+        .pay-pp {
+            color: #003087;
+            font-weight: 800;
+            font-style: italic;
+            font-size: 16px;
+        }
+
+        .pay-card {
+            color: #111;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        /* Success Message */
+        .success-icon {
+            font-size: 50px;
+            color: #06A75E;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .success-text {
+            text-align: center;
+            font-size: 22px;
+            font-weight: 600;
+            color: #111;
+        }
+        /* Unified Responsive Design */
+        @media (max-width: 1024px) {
+            .features-grid, .category-grid { grid-template-columns: repeat(2, 1fr) !important; }
+            .footer-content, .footer-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column !important; gap: 15px !important; }
+            .nav-links { display: flex !important; flex-wrap: wrap !important; justify-content: center !important; gap: 15px !important; font-size: 0.9rem !important; }
+            .features-grid, .category-grid, .footer-content, .footer-grid { grid-template-columns: 1fr !important; }
+            .hero-content h1 { font-size: 2.5rem !important; }
+            .hero-content p { font-size: 1rem !important; padding: 0 15px !important; }
+            .section-header h2 { font-size: 2rem !important; }
+            .video-card { flex-direction: column !important; }
+            .video-card video { width: 100% !important; max-width: 100% !important; }
+            .video-title { text-align: center !important; }
+            .product-layout { flex-direction: column !important; }
+            .about-content { flex-direction: column !important; }
+        }
+        @media (max-width: 480px) {
+            .logo img { height: 50px !important; }
+            .nav-links { flex-direction: column; align-items: center; gap: 10px !important; }
+            .product-grid { grid-template-columns: 1fr !important; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Announcement Bar -->
+    <div class="top-bar">
+        <span>Free worldwide shipping on all orders over $150.</span>
+        <a href="store.html" class="top-bar-shop-btn">GO TO SHOP <i class="fas fa-chevron-right"
+                style="font-size: 0.6rem; margin-left: 4px;"></i></a>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="Untitled design (2).png" alt="Primary Goal Rabbani" style="height: 60px; width: auto;">
+            </a>
+
+            <nav class="nav-links">
+                <a href="index.html">HOME</a>
+                <a href="store.html">SHOP</a>
+                <a href="TRAING VIDEO.html">TRAINING</a>
+                <a href="about.html">ABOUT US</a>
+                <a href="https://wa.me/923477128889">CONTACT</a>
+            </nav>
+
+            <div class="nav-icons">
+                <i class="far fa-user" id="openLoginBtn"></i>
+                <div class="cart-icon-wrapper" id="openCartIcon">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count">0</span>
+                </div>
+                <a href="store.html" class="header-shop-btn">
+                    <i class="fas fa-store"></i> SHOP
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/923477128889" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Toast Notification element -->
+    <div id="cartToast">
+        <span>✔️</span>
+        <span>Item added to your cart!</span>
+    </div>
+
+    
+        </div>
+        <div class="product-layout">
+            <!-- Gallery Column -->
+            <div class="image-gallery">
+                <div class="main-image">
+                    <img id="mainProductImage" src="https://m.media-amazon.com/images/I/81DAB2ouq+L._AC_SX679_.jpg"
+                        alt="Selected Product Image">
+                </div>
+                <div class="thumbnails">
+                    <!-- 5 Small Thumbnail Pictures -->
+                    <img src="https://m.media-amazon.com/images/I/81FgyIf+z-L._AC_SX679_.jpg" alt="Thumb 1"
+                        class="active" onclick="changeImage(this.src, this)">
+                    <img src="https://m.media-amazon.com/images/I/81fLTgGTIpL._AC_SX679_.jpg"
+                        onclick="changeImage(this.src, this)">
+                    <img src="https://m.media-amazon.com/images/I/81lWwZ2P1jL._AC_SX679_.jpg" alt="Thumb 3"
+                        onclick="changeImage(this.src, this)">
+                    <img src="https://m.media-amazon.com/images/I/713U5MsBrnL._AC_SL1500_.jpg" alt="Thumb 4"
+                        onclick="changeImage(this.src, this)">
+                    <img src="https://m.media-amazon.com/images/I/71MN4PtZhsL._AC_SL1500_.jpg" alt="Thumb 5"
+                        onclick="changeImage(this.src, this)">
+                </div>
+            </div>
+
+            <!-- Details Column -->
+            <div class="product-details">
+                <h1 class="product-title">Soccer Training Mat With Training Videos Soccer Skills Mat Football Footwork
+                    Mat
+                    Improve Strength,Agility and Coordination, Soccer Footwork Trainer Soccer Gifts for Boys & Girls
+                    Football
+                    Training Equipment for All Ages</h1>
+                <a href="store.html" class="brand-link">Brand: .RABBANI.</a>
+
+                <div class="price">
+                    <span class="price-currency">PKR</span>10,312<span class="price-currency">.81</span>
+                </div>
+
+                <div class="buy-box">
+                    <div style="font-size:18px; font-weight:600; margin-bottom:10px;">Ready to Ship</div>
+                    <div style="color: #007600; font-weight:600; margin-bottom:20px; font-size:14px;">In Stock</div>
+                    <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+                    <button class="buy-now-btn" onclick="window.location.href='from.html'">Buy Now</button>
+                </div>
+
+                <div class="description-title">About this item</div>
+                <ul class="description">
+                    <li><strong>【SOCCER MAT WITH TRAINING VIDEOS】</strong>Instructional Videos are included—Please Scan
+                        the QR
+                        code in the images to access full training content. This complete football training kit includes
+                        a thickened
+                        35.4 x 23.6 inch Football Training Mat , Organizer Bag, Kick Trainer and football grip socks.
+                    </li>
+                    <li><strong>【 IMPROVE Soccer SKILLS FAST】</strong> Designed to enhance ball control, foot arch
+                        strength,
+                        agility, speed, and coordination. Numbered steps and directional arrows help players master
+                        dribbling,
+                        stepping, backward movement, and ball mastery.</li>
+                    <li><strong>【TRAIN ANYTIME, ANYWHERE】</strong> Perfect for home, living room, gym, backyard, or
+                        field
+                        training. The non-slip and silent design Soccer Training Mat protects floors and allows
+                        uninterrupted
+                        practice in small spaces—rain or shine, indoors or outdoors.</li>
+                    <li><strong>【PERFECT Soccer GIFT FOR KIDS & ALL AGES】</strong> An ideal football gift for boys,
+                        girls, teens,
+                        and adults. Encourages active play, improves physical fitness, and builds confidence. A fun and
+                        effective
+                        training tool for football lovers of all skill levels.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function changeImage(src, element) {
+            document.getElementById('mainProductImage').src = src;
+            const thumbs = document.querySelectorAll('.thumbnails img');
+            thumbs.forEach(t => t.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        function addToCart() {
+            // Update cart count
+            const cartCountElement = document.querySelector('.cart-count');
+            if (cartCountElement) {
+                let count = parseInt(cartCountElement.innerText) || 0;
+                cartCountElement.innerText = count + 1;
+            }
+
+            // Show toast
+            const toast = document.getElementById('cartToast');
+            if (toast) {
+                toast.style.display = 'flex';
+                toast.style.animation = 'slideInRight 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 3000);
+            }
+        }
+    </script>
+</body>
+</html>

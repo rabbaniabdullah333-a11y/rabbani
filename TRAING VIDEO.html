@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="auth.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Football Mat Foundation Exercise Videos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0b0f14, #111827);
+            color: #e5e7eb;
+        }
+
+        /* Global Header CSS */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            text-decoration: none;
+            color: #0f1111;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            font-size: 1rem;
+            text-decoration: none;
+            color: #0f1111;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #22d3ee;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 20px;
+            font-size: 1.2rem;
+            color: #0f1111;
+        }
+
+        /* Global Footer CSS */
+        footer {
+            background: rgba(17, 24, 39, 0.9);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .footer-col h4 {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul a:hover {
+            color: white;
+        }
+
+        /* BANNER STYLES */
+        .banner {
+            position: relative;
+            margin: 20px 16px;
+            height: 350px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .banner:hover img {
+            transform: scale(1.05);
+        }
+
+        .banner-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.3) 50%, rgba(15, 23, 42, 0) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 40px;
+            box-sizing: border-box;
+            text-align: left;
+        }
+
+        .banner h1 {
+            margin: 0;
+            font-size: 3rem;
+            font-weight: 800;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.1;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .banner p {
+            margin: 15px 0 0;
+            font-size: 1.2rem;
+            color: #22d3ee;
+            font-weight: 500;
+            max-width: 600px;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .banner {
+                height: 250px;
+                margin: 15px 10px;
+            }
+
+            .banner-overlay {
+                padding: 20px;
+            }
+
+            .banner h1 {
+                font-size: 1.8rem;
+            }
+
+            .banner p {
+                font-size: 1rem;
+                margin-top: 10px;
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 16px;
+        }
+
+        .grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        @keyframes cardEnter {
+            0% {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 15px 35px rgba(34, 211, 238, 0.2); }
+            50% { box-shadow: 0 15px 35px rgba(34, 211, 238, 0.6); }
+            100% { box-shadow: 0 15px 35px rgba(34, 211, 238, 0.2); }
+        }
+
+        /* VIDEO CARD */
+        .video-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            opacity: 0;
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            justify-content: flex-end;
+            animation: cardEnter 0.6s ease-out forwards;
+            border-left: 4px solid transparent;
+            position: relative;
+        }
+
+        .video-card::after {
+            content: '\f144'; /* FontAwesome play icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 20%;
+            top: 50%;
+            transform: translate(50%, -50%) scale(0.8);
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.7);
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .video-card:hover:not(.dimmed)::after {
+            opacity: 1;
+            transform: translate(50%, -50%) scale(1);
+            color: #22d3ee;
+        }
+
+        .video-card:hover:not(.dimmed) {
+            transform: translateY(-8px) scale(1.03);
+            background: rgba(255, 255, 255, 0.1);
+            animation: pulse-glow 2s infinite ease-in-out;
+            border-left: 4px solid #22d3ee;
+        }
+
+        .video-card.dimmed {
+            opacity: 0.25;
+            transform: scale(0.98);
+            filter: blur(0.3px);
+        }
+
+        .video-card.active {
+            opacity: 1 !important;
+            transform: scale(1.03);
+            box-shadow: 0 0 25px rgba(34, 211, 238, 0.25);
+            border: 1px solid rgba(34, 211, 238, 0.3);
+        }
+
+        .video-title {
+            padding: 15px 20px;
+            font-size: 24px;
+            font-weight: 900;
+            color: #ffffff;
+            background: transparent;
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        video {
+            display: block;
+            background: black;
+        }
+
+        .video-card video {
+            width: 45%;
+            max-width: 250px;
+            object-fit: cover;
+        }
+
+        /* FULL SCREEN PLAYER */
+        .player-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .player-overlay video {
+            width: 95%;
+            max-width: 900px;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(34, 211, 238, 0.3);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* WhatsApp Floating Widget */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: auto;
+            padding: 0 20px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+            background-color: #25D366;
+            color: white;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            cursor: default;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.05);
+        }
+        /* Unified Responsive Design */
+        @media (max-width: 1024px) {
+            .features-grid, .category-grid { grid-template-columns: repeat(2, 1fr) !important; }
+            .footer-content, .footer-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: row !important; gap: 10px !important; overflow-x: auto; padding: 10px !important; }
+            .nav-links { display: flex !important; flex-wrap: nowrap !important; justify-content: flex-start !important; gap: 15px !important; font-size: 0.85rem !important; }
+            .features-grid, .category-grid, .footer-content, .footer-grid { grid-template-columns: 1fr !important; }
+            .hero-content h1 { font-size: 2.5rem !important; }
+            .hero-content p { font-size: 1rem !important; padding: 0 15px !important; }
+            .section-header h2 { font-size: 2rem !important; }
+            .video-card { flex-direction: column !important; }
+            .video-card video { width: 100% !important; max-width: 100% !important; }
+            .video-title { text-align: center !important; }
+            .product-layout { flex-direction: column !important; }
+            .about-content { flex-direction: column !important; }
+        }
+        @media (max-width: 480px) {
+            .logo img { height: 50px !important; }
+            .nav-links { flex-direction: column; align-items: center; gap: 10px !important; }
+            .product-grid { grid-template-columns: 1fr !important; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header style="background: #ffffff;">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="Untitled design (2).png" alt="Primary Goal Rabbani" style="height: 60px; width: auto;">
+            </a>
+
+            <nav class="nav-links">
+                <a href="index.html">HOME</a>
+                <a href="store.html">SHOP</a>
+                <a href="TRAING VIDEO.html" style="color: #22d3ee;">TRAINING</a>
+                <a href="about.html">ABOUT US</a>
+                <a href="https://wa.me/923477128889">CONTACT</a>
+            </nav>
+
+            <div class="nav-icons" style="font-size: 1.2rem; display: flex; gap: 20px;">
+                <i class="far fa-user"></i>
+                <i class="fas fa-shopping-bag"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="banner">
+        <img src="Gemini_Generated_Image_y7a4vcy7a4vcy7a4 (1).png" alt="Training Preview" />
+        <div class="banner-overlay">
+            <h1>Football Training Program</h1>
+            <p>Improve your skills with foundation & advanced exercises</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="grid" id="video-grid">
+            <!-- Videos will be injected here -->
+        </div>
+    </div>
+
+    <div class="player-overlay" id="player">
+        <button class="close-btn" onclick="closePlayer()">Close</button>
+        <video id="mainVideo" controls></video>
+    </div>
+
+    <script>
+        const player = document.getElementById('player');
+        const mainVideo = document.getElementById('mainVideo');
+        const videoGrid = document.getElementById('video-grid');
+
+        function renderVideos() {
+            const siteData = JSON.parse(localStorage.getItem('rabbani_site_data') || '{"videos": []}');
+            let videos = siteData.videos || [];
+
+            if (videos.length === 0) {
+                videos = [
+                    { title: 'Training Video 1: Foundation & Skills', url: '01 Football mat foundation exercises1.1 - 2F22E Store (144p, h264) (2).mp4' },
+                    { title: 'Training Video 2: Advanced Control', url: '02 Football mat foundation exercises1.2 - 2F22E Store (144p, h264) (2).mp4' },
+                    { title: 'Training Video 3: Dribbling Techniques', url: '03 Football mat foundation exercises1.3 - 2F22E Store (144p, h264) (2).mp4' },
+                    { title: 'Training Video 4: Passing Accuracy', url: '04 Football mat foundation exercises1.4 - 2F22E Store (144p, h264) (2).mp4' },
+                    { title: 'Training Video 5: Shooting Mastery', url: '05 Football mat Advanced Practice 2.1 - 2F22E Store (144p, h264) (2).mp4' },
+                    { title: 'Training Video 6: Defensive Stance', url: '06 Football mat Advanced Practice 2.2 - 2F22E Store (144p, h264) (2).mp4' },
+                    { title: 'Training Video 7: 1v1 Attacking', url: '07 Football mat Advanced Practice 2.3 - 2F22E Store (144p, h264) (2).mp4' },
+                    { title: 'Training Video 8: First Touch Control', url: '08 Football mat Advanced Practice 2.4 - 2F22E Store (144p, h264) (2).mp4' },
+                    { title: 'Training Video 9: Ball Mastery', url: '09 Football mat Advanced skill practice 3.1 - 2F22E Store (144p, h264).mp4' },
+                    { title: 'Training Video 10: Fitness & Endurance', url: '10 Football mat Advanced skill practice 3.2 - 2F22E Store (144p, h264) (2).mp4' },
+                    { title: 'Training Video 11: Speed & Agility', url: '11 Football mat Advanced skill practice 3.3 - 2F22E Store (144p, h264) (2).mp4' },
+                    { title: 'Training Video 12: Match Scenarios', url: '12 Football mat Advanced skill practice 3.4 - 2F22E Store (144p, h264).mp4' }
+                ];
+            }
+
+            videoGrid.innerHTML = videos.map((v, index) => `
+        <div class="video-card" style="animation-delay: ${index * 0.1}s" onclick="openPlayer(this)">
+          <div class="video-title">${v.title}</div>
+          <video src="${v.url}" preload="metadata"></video>
+        </div>
+      `).join('');
+        }
+
+        function openPlayer(card) {
+            const video = card.querySelector('video');
+            const allCards = document.querySelectorAll('.video-card');
+
+            allCards.forEach(c => {
+                c.classList.remove('active');
+                c.classList.add('dimmed');
+            });
+
+            card.classList.remove('dimmed');
+            card.classList.add('active');
+
+            mainVideo.src = video.src;
+            player.style.display = 'flex';
+            // Video autoplay removed as requested
+        }
+
+        function closePlayer() {
+            mainVideo.pause();
+            player.style.display = 'none';
+            mainVideo.src = '';
+
+            const allCards = document.querySelectorAll('.video-card');
+            allCards.forEach(c => {
+                c.classList.remove('dimmed');
+                c.classList.remove('active');
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', renderVideos);
+    </script>
+
+    <!-- Permanent WhatsApp Button -->
+    <a href="https://wa.me/923477128889" class="whatsapp-float" target="_blank" aria-label="Chat with us on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" style="display:inline-block; margin-bottom:15px;">
+                        <img src="Untitled design (2).png" alt="Primary Goal Rabbani" style="height: 80px;">
+                    </a>
+                    <p>Redefining football training at home with premium equipment and professional methodology.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>SHOP</h4>
+                    <ul>
+                        <li><a href="store.html">All Products</a></li>
+                        <li><a href="store.html">Soccer Mats</a></li>
+                        <li><a href="store.html">Training Gear</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>HELP</h4>
+                    <ul>
+                        <li><a href="https://wa.me/923477128889">Contact Us</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>SOCIAL</h4>
+                    <ul>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                <p>&copy; 2026 .RABBANI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
